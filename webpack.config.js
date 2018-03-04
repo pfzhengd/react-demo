@@ -16,7 +16,7 @@ let ROOT_PATH = path.resolve(__dirname),
         devServer:{
             historyApiFallback: true,
             hot: true,
-            inline: false,
+            inline: true,
             progress: true
         },
         resolve:{
