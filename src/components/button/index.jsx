@@ -8,11 +8,7 @@ class Button extends React.Component {
     }
 
     handleClick() {
-        //let count = this.props.count + 1;
-        // this.setState({
-        //     count: count
-        // })
-        this.props.parentMethod();
+        this.props.handleClick();
     }
 
     render() {
