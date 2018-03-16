@@ -1,29 +1,42 @@
 import React from 'react';
 import Container from '../container/index';
-import SummaryStore from '../../untility/summaryStore';
+//import SummaryStore from '../../untility/summaryStore';
+import Store from '../../redux/store';
 import './style.scss';
 
 class Panel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            count: SummaryStore.getSummary()
+            count: this.getStatesCount()
         }
         //this.handleUpdateCount = this.handleUpdateCount.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.getStatesCount = this.getStatesCount.bind(this);
     }
 
     componentDidMount(){
-        SummaryStore.addChangeListener(this.onChange);
+        //SummaryStore.addChangeListener(this.onChange);
+        Store.subscribe(this.onChange);
     }
 
     componentWillUnmount(){
-        SummaryStore.removeChangeListener(this.onChange);
+        //SummaryStore.removeChangeListener(this.onChange);
+    }
+
+    getStatesCount(){
+        let states = Store.getState(),
+            count = 0;
+        for(var state in states){
+            count += states[state];
+        }
+
+        return count;
     }
 
     onChange(){
         this.setState({
-            count:SummaryStore.getSummary()
+            count:this.getStatesCount()
         });
     }
 
