@@ -10,7 +10,7 @@ let datas = [{
     text: 'Hello world - 2'
 }, {
     id: 3,
-    text: 'Hello world - 3'
+    text: 'Hello world - 34'
 }];
 
 let store = createStore(reducer, datas);
