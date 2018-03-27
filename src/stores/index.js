@@ -4,46 +4,46 @@ import {
     applyMiddleware,
     compose
 } from 'redux';
-import {Perf} from 'react-addons-perf';
+//import {Perf} from 'react-addons-perf';
 
 import reducer from '../reducers/index';
-
+let thunkMiddlewares = require('redux-thunk');
 let risi = require('redux-immutable-state-invariant');
-let datas = [{
-    id: 1,
-    text: 'Hello world - 1'
-}, {
-    id: 2,
-    text: 'Hello world - 2'
-}, {
-    id: 3,
-    text: 'Hello world - 3'
-}];
+let datas = {
+    items: [{
+        id: 0,
+        code: '101280601',
+        text: '深圳市'
+    }, {
+        id: 1,
+        code: '101280101',
+        text: '广州市'
+    }, {
+        id: 2,
+        code: '101281601',
+        text: '东莞市'
+    }],
+    showInfo: {
+        city: '#',
+        temp1: '#',
+        temp2: '#',
+        weather: '#'
+    }
+};
 
-const win = window;
-win.Perf = Perf;
-
-// const reducer = combineReducers({
-//     todos:todoR
-// })
-
-// const middlewares = [];
-// if (process.env.NODE_ENV !== 'production') {
-//     middlewares.push(require('redux-immutable-state-invariant')());
-// }
-// const storeEnhancers = compose(applyMiddleware(...middlewares),
-//     (win && win.devToolsExtension) ? win.devToolsExtension() : (f) => f)
-
-//let store = createStore(reducer, datas);
+// const win = window;
+// win.Perf = Perf;
 
 const middlewares = [];
 if (process.env.NODE_ENV !== 'production') {
     middlewares.push(risi.default());
 }
 
+middlewares.push(thunkMiddlewares);
+
 const storeEnhancers = compose(
     applyMiddleware(middlewares[0]),
-    (win && win.devToolsExtension) ? win.devToolsExtension() : (f) => f,
+    (window && window.devToolsExtension) ? window.devToolsExtension() : (f) => f,
 );
 
 export default createStore(reducer, datas, storeEnhancers);
