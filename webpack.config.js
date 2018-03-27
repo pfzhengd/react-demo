@@ -17,7 +17,13 @@ module.exports = {
         historyApiFallback: true,
         hot: true,
         inline: true,
-        progress: true
+        progress: true,
+        proxy: {
+            "/data/*": {
+                "target": "http://www.weather.com.cn/",
+                "changeOrigin": true
+            }
+        }
     },
     resolve: {
         extensions: ['.js', '.jsx']

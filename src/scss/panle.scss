@@ -1,58 +1,88 @@
-.panle-box{
-    font-size:14px;
-     padding:5px;
-    position: relative;
-    .header{
-        border:1px solid #dedede;
+body {
+    margin: 0px;
+    /*position: relative;*/
+    border: 0px;
+    font-size: 14px;
+    padding: 5px;
+    /*height:100%;*/
+    >div {
+        min-height: 200px;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.show-box {
+    span {
+        margin-right: 10px;
+    }
+}
+
+.panle-box,
+.show-box {
+    float: left;
+    width: 49.33%;
+    .header {
+        border: 1px solid #dedede;
         position: relative;
     }
-    .body{
-        border:1px solid #dedede;
-        border-top:0px;
+    .body {
+        border: 1px solid #dedede;
+        border-top: 0px;
     }
-    ul{
-        list-style-type:none;
-        padding:0px;
-        margin:0px;
-        li{
+    ul {
+        list-style-type: none;
+        padding: 0px;
+        margin: 0px;
+        li {
             position: relative;
-            padding:6px;
-            .span{
+            padding: 6px;
+            cursor: pointer;
+            .span {
                 color: #e2c522;
-                margin-right:5px;
+                margin-right: 5px;
             }
-
-            span{
-                color:#666;
+            span {
+                color: #666;
+            }
+            &:hover {
+                background-color: #dedede;
             }
         }
     }
-    .btn{
-        border:0px;
-        background-color: #fff;
-        font-size:14px;
+    .btn {
+        border: 0px;
+        background-color: transparent;
+        font-size: 14px;
         position: absolute;
         right: 0px;
         outline: none;
         cursor: pointer;
-    }
-    .btnAdd{
         top: 0px;
-        right:1px;
+        height: 100%;
+        &:hover {
+            background-color: #fff;
+            border: 1px solid #fff;
+            opacity: .6;
+        }
+    }
+    .btnAdd {
+        top: 0px;
+        right: 1px;
         line-height: 23px;
         border-left: 1px solid #dedede;
     }
-    .btnDel{
-        
-    }
-    .cnInput{
-        border:0px;
-        line-height:24px;
+    .btnDel {}
+    .cnInput {
+        border: 0px;
+        line-height: 24px;
         display: inline-block;
         outline: none;
-        width:100%;
-        padding-right:30px;
-        padding-left:5px;
+        width: 100%;
+        padding-right: 30px;
+        padding-left: 5px;
         box-sizing: border-box;
     }
 }

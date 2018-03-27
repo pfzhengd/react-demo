@@ -1,9 +1,9 @@
 import React from 'react';
 
-function ShowItem({ id, text,numStyle }) {
+function ShowItem({ id, text,numStyle,handleClick }) {
     return (
         <React.Fragment>
-            <span className={numStyle}>{id}. </span><span>{text}</span>
+            <div onClick={handleClick}><span className={numStyle}>{id}. </span><span>{text}</span></div>
         </React.Fragment>
     );
 }
