@@ -27,7 +27,8 @@ let datas = {
         city: '#',
         temp1: '#',
         temp2: '#',
-        weather: '#'
+        weather: '#',
+        loading: false
     }
 };
 
@@ -35,14 +36,15 @@ let datas = {
 // win.Perf = Perf;
 
 const middlewares = [];
+//middlewares.push(thunkMiddlewares.default());
+
 if (process.env.NODE_ENV !== 'production') {
     middlewares.push(risi.default());
 }
 
-middlewares.push(thunkMiddlewares);
-
+middlewares.push(thunkMiddlewares.default.bind(this));
 const storeEnhancers = compose(
-    applyMiddleware(middlewares[0]),
+    applyMiddleware(...middlewares),
     (window && window.devToolsExtension) ? window.devToolsExtension() : (f) => f,
 );
 

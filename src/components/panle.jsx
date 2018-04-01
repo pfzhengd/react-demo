@@ -5,12 +5,17 @@ import ShowItem from '../components/showItem';
 import * as Actions from '../actions/actions';
 import Store from '../stores/index';
 import ShowInfo from '../components/showInfo';
+import Loading from '../components/loading';
 import '../scss/panle.scss';
 
 class Panle extends Component {
     constructor(props) {
         super(props);
-        this.state = { datas: Store.getState().items, showInfo: Store.getState().showInfo };
+        this.state = {
+            datas: Store.getState().items,
+            showInfo: Store.getState().showInfo,
+            loading: Store.getState().loading
+        };
         this.onChange = this.onChange.bind(this);
         this.handleDecrement = this.handleDecrement.bind(this);
         this.handleIncrement = this.handleIncrement.bind(this);
@@ -21,21 +26,28 @@ class Panle extends Component {
 
     handleClickCity(item) {
         //console.log(item.code + ',' + item.text);
-        this.getCityInfo(item);
+        //this.getCityInfo(item);
+        Store.dispatch(Actions.loadingAsync(item));
     }
 
     getCityInfo(item) {
         //fetch(`/data/cityinfo/101280101.html`).then((res) => {
         let _this = this;
+        this.setState({
+            showInfo:{
+                loading:true
+            }
+        });
         fetch(`data/cityinfo/${item.code}.html`).then((res) => {
             if (res.status !== 200) {
                 throw new Error('Fail to get response with status ' + res.status)
             }
             res.json().then((resJson) => {
                 //console.log(resJson);
+                resJson['loading'] = false;
                 _this.setState({
                     showInfo: resJson.weatherinfo
-                })
+                });
             }).catch((err) => {
                 console.log(err);
             });
@@ -59,11 +71,14 @@ class Panle extends Component {
 
     componentDidMount() {
         Store.subscribe(this.onChange);
+        Store.dispatch(Actions.loadingAsync(Store.getState().items[0]))
+        //this.getCityInfo(Store.getState().items[0]);
     }
 
     onChange() {
         this.setState({
-            datas: Store.getState().items
+            datas: Store.getState().items,
+            showInfo: Store.getState().showInfo
         })
     }
 
@@ -73,6 +88,7 @@ class Panle extends Component {
     }
 
     render() {
+        debugger;
         return (
             <React.Fragment>
                 <div className='panle-box'>
@@ -92,6 +108,7 @@ class Panle extends Component {
                     </div>
                 </div>
                 <div className='show-box'>
+                    {/* <ShowInfo info={this.state.showInfo} /> */}
                     <ShowInfo info={this.state.showInfo} />
                 </div>
             </React.Fragment>
